@@ -17,7 +17,7 @@ class XmlParserAdapter implements XmlParserInterface
         return $this;
     }
 
-    public function getAttribute(Xml $xml, string $tag, string $attribute): string
+    public function getAttribute(Xml $xml, string $tag, string $attribute): ?string
     {
         $this->parse($xml->getContent());
 
@@ -29,7 +29,7 @@ class XmlParserAdapter implements XmlParserInterface
         return $this->xmlTreeNode->getAttribute($attribute);
     }
 
-    public function getTag(Xml $xml, string $tag): string
+    public function getTag(Xml $xml, string $tag): ?string
     {
         $this->parse($xml->getContent());
 

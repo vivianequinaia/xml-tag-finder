@@ -6,6 +6,9 @@ use Arquivei\XML\Tag\Finder\Adapters\xmlParserInterface;
 use Arquivei\XML\Tag\Finder\Entities\Attribute;
 use Arquivei\XML\Tag\Finder\Entities\Tag;
 use Arquivei\XML\Tag\Finder\Entities\Xml;
+use Arquivei\XML\Tag\Finder\Exceptions\AttributeNotFoundException;
+use Arquivei\XML\Tag\Finder\Exceptions\TagOrValueNotFoundException;
+use Arquivei\XML\Tag\Finder\Validators\CheckIfReturnIsNullValidator;
 
 final class Finder
 {
@@ -20,7 +23,7 @@ final class Finder
         $this->xmlParser = $xmlParser;
     }
 
-    public function getTag(string $tag)
+    public function getTag(string $tag): Finder
     {
         $this->tag = $tag;
         return $this;
@@ -34,10 +37,20 @@ final class Finder
 
     public function find()
     {
-        if(isset($this->attribute)) {
-            return (new Attribute())
-                ->setName($this->tag . '/' . $this->attribute)
-                ->setValue($this->xmlParser->getAttribute($this->xml, $this->tag, $this->attribute));
+        if (isset($this->attribute)) {
+            try {
+                return (new Attribute())
+                    ->setName($this->tag . '/' . $this->attribute)
+                    ->setValue($this->xmlParser->getAttribute($this->xml, $this->tag, $this->attribute));
+            } catch (\Exception $exception) {
+                throw (new AttributeNotFoundException())->setName($this->tag . '/' . $this->attribute);
+            }
+        }
+
+        $validate = (new CheckIfReturnIsNullValidator($this->xmlParser->getTag($this->xml, $this->tag)))->validate();
+
+        if ($validate) {
+            throw (new TagOrValueNotFoundException())->setKey($this->tag);
         }
 
         return (new Tag())
