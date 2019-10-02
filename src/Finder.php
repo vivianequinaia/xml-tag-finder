@@ -2,8 +2,7 @@
 
 namespace Arquivei\XML\Tag\Finder;
 
-use Arquivei\XML\Tag\Finder\Adapters\XmlParserAdapter;
-use Arquivei\XML\Tag\Finder\Dependencies\LogInterface;
+use Arquivei\XML\Tag\Finder\Adapters\XmlParserInterface;
 
 abstract class Finder
 {
@@ -13,7 +12,7 @@ abstract class Finder
 
     public function __construct(
         string $xml,
-        XmlParserAdapter $parserAdapter
+        XmlParserInterface $parserAdapter
     ) {
         $this->parserAdapter = $parserAdapter;
         $this->xml = $xml;

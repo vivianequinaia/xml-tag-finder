@@ -2,7 +2,7 @@
 
 namespace Arquivei\XML\Tag\Finder;
 
-use Arquivei\XML\Tag\Finder\Adapters\XmlParserAdapter;
+use Arquivei\XML\Tag\Finder\Adapters\XmlParserInterface;
 use Arquivei\XML\Tag\Finder\Entities\Attribute;
 
 class FindAttribute extends Finder
@@ -15,7 +15,7 @@ class FindAttribute extends Finder
 
     public function __construct(
         string $xml,
-        XmlParserAdapter $parserAdapter
+        XmlParserInterface $parserAdapter
     ) {
         parent::__construct($xml, $parserAdapter);
         $this->parserAdapter = $parserAdapter;
