@@ -10,7 +10,6 @@ class FindTag extends Finder
     private $xml;
     private $parserAdapter;
     private $xmlTreeNode;
-    private $tags;
 
     public function __construct(
         string $xml,

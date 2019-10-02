@@ -10,8 +10,6 @@ class FindAttribute extends Finder
     private $xml;
     private $parserAdapter;
     private $xmlTreeNode;
-    private $tags;
-    private $attribute;
 
     public function __construct(
         string $xml,

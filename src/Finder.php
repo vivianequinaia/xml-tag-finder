@@ -7,7 +7,6 @@ use Arquivei\XML\Tag\Finder\Adapters\XmlParserInterface;
 abstract class Finder
 {
     private $xml;
-    private $logger;
     private $parserAdapter;
 
     public function __construct(
