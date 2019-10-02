@@ -2,7 +2,7 @@
 
 namespace Arquivei\XML\Tag\Finder;
 
-use Arquivei\XML\Tag\Finder\Adapters\XmlParserInterface;
+use Arquivei\XML\Tag\Finder\Adapters\xmlParserInterface;
 use Arquivei\XML\Tag\Finder\Entities\Attribute;
 use Arquivei\XML\Tag\Finder\Entities\Tag;
 use Arquivei\XML\Tag\Finder\Entities\Xml;
@@ -11,13 +11,13 @@ final class Finder
 {
     private $tag;
     private $attribute;
-    private $xmlParserInterface;
+    private $xmlParser;
     private $xml;
 
-    public function __construct(Xml $xml, XmlParserInterface $xmlParserInterface)
+    public function __construct(Xml $xml, xmlParserInterface $xmlParser)
     {
         $this->xml = $xml;
-        $this->xmlParserInterface = $xmlParserInterface;
+        $this->xmlParser = $xmlParser;
     }
 
     public function getTag(string $tag)
@@ -37,11 +37,11 @@ final class Finder
         if(isset($this->attribute)) {
             return (new Attribute())
                 ->setName($this->tag . '/' . $this->attribute)
-                ->setValue($this->xmlParserInterface->getAttribute($this->xml, $this->tag, $this->attribute));
+                ->setValue($this->xmlParser->getAttribute($this->xml, $this->tag, $this->attribute));
         }
 
         return (new Tag())
             ->setKey($this->tag)
-            ->setValue($this->xmlParserInterface->getTag($this->xml, $this->tag));
+            ->setValue($this->xmlParser->getTag($this->xml, $this->tag));
     }
 }

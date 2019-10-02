@@ -19,7 +19,7 @@ class XmlParserAdapter implements XmlParserInterface
 
     public function getAttribute(Xml $xml, string $tag, string $attribute): string
     {
-        $this->parse($xml->getNfe());
+        $this->parse($xml->getContent());
 
         $tagArray = explode('/', $tag);
         foreach ($tagArray as $value) {
@@ -31,7 +31,7 @@ class XmlParserAdapter implements XmlParserInterface
 
     public function getTag(Xml $xml, string $tag): string
     {
-        $this->parse($xml->getNfe());
+        $this->parse($xml->getContent());
 
         $tagArray = explode('/', $tag);
         foreach ($tagArray as $value) {

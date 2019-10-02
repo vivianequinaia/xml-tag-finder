@@ -4,15 +4,15 @@ namespace Arquivei\XML\Tag\Finder\Entities;
 
 class Xml
 {
-    private $nfe;
+    private $content;
 
-    public function __construct(string $nfe)
+    public function __construct(string $content)
     {
-        $this->nfe = $nfe;
+        $this->content = $content;
     }
 
-    public function getNfe(): string
+    public function getContent(): string
     {
-        return $this->nfe;
+        return $this->content;
     }
 }
