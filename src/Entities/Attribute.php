@@ -28,6 +28,4 @@ class Attribute
         $this->value = $value;
         return $this;
     }
-
-
 }

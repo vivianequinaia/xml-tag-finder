@@ -26,7 +26,6 @@ class FindTag extends Finder
         $tagsArray = explode('/', $tags);
         foreach ($tagsArray as $value) {
             $this->xmlTreeNode = $this->xmlTreeNode->getChildByName($value);
-
         }
         return $this;
     }
