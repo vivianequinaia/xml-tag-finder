@@ -20,19 +20,17 @@ class FindTag extends Finder
         $this->xml = $xml;
     }
 
-    public function find(string $tags)
+    public function find(string $tags, string $attribute = null): Tag
     {
-        $this->xmlTreeNode = $this->parserAdapter->parse($this->xml);
+        $parse =  clone $this->parserAdapter;
+
+        $this->xmlTreeNode = $parse->parse($this->xml);
+
         $tagsArray = explode('/', $tags);
         foreach ($tagsArray as $value) {
             $this->xmlTreeNode = $this->xmlTreeNode->getChildByName($value);
         }
-        return $this;
-    }
 
-    public function getTag(string $tags)
-    {
-        $this->find($tags);
         return (new Tag())
             ->setKey($tags)
             ->setValue($this->xmlTreeNode->getContent());

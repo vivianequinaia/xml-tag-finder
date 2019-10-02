@@ -6,7 +6,7 @@ use Arquivei\XML\Tag\Finder\Adapters\XmlParserInterface;
 use Arquivei\XML\Tag\Finder\Entities\Attribute;
 use Arquivei\XML\Tag\Finder\Entities\Tag;
 
-class FinderFactory
+final class FinderFactory
 {
     private $xml;
     private $parserAdapter;
@@ -21,13 +21,13 @@ class FinderFactory
 
     public function getTag(string $tag): Tag
     {
-        return (new FindTag($this->xml, $this->parserAdapter))->getTag($tag);
+        return (new FindTag($this->xml, $this->parserAdapter))->find($tag);
     }
 
     public function getAttribute(string $tag, string $attribute): Attribute
     {
         return (new FindAttribute($this->xml, $this->parserAdapter))
-            ->getAttribute(
+            ->find(
                 $tag,
                 $attribute
             );

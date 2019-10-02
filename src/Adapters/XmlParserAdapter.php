@@ -3,21 +3,23 @@
 namespace Arquivei\XML\Tag\Finder\Adapters;
 
 use Jitesoft\XML\Node;
-use Jitesoft\XML\Parser;
+use Jitesoft\XML\ParserInterface;
 
 class XmlParserAdapter implements XmlParserInterface
 {
     private $xmlParser;
     private $xmlTreeNode;
+    private $parser;
 
-    public function __construct(Parser $xmlParser)
+    public function __construct(ParserInterface $xmlParser)
     {
         $this->xmlParser = $xmlParser;
     }
 
     public function parse(string $xml): Node
     {
-        return $this->xmlParser->parse($xml);
+        $this->parser = clone $this->xmlParser;
+        return $this->parser->parse($xml);
     }
 
     public function getChildByName(string $tagKey): Node

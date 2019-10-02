@@ -20,7 +20,7 @@ class FindAttribute extends Finder
         $this->xml = $xml;
     }
 
-    public function find(string $tags): FindAttribute
+    public function find(string $tags, string $attribute = null): Attribute
     {
         $this->xmlTreeNode = $this->parserAdapter->parse($this->xml);
 
@@ -28,12 +28,7 @@ class FindAttribute extends Finder
         foreach ($tagsArray as $value) {
             $this->xmlTreeNode = $this->xmlTreeNode->getChildByName($value);
         }
-        return $this;
-    }
 
-    public function getAttribute(string $tags, string $attribute): Attribute
-    {
-        $this->find($tags);
         return (new Attribute())
             ->setValue($this->xmlTreeNode->getAttribute($attribute))
             ->setName($tags . "/" . $attribute);

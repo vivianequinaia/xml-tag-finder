@@ -17,5 +17,5 @@ abstract class Finder
         $this->xml = $xml;
     }
 
-    abstract public function find(string $tags);
+    abstract public function find(string $tags, string $attribute = null);
 }
