@@ -2,34 +2,16 @@
 
 namespace Arquivei\XML\Tag\Finder;
 
-use Arquivei\XML\Tag\Finder\Adapters\XmlParserInterface;
-use Arquivei\XML\Tag\Finder\Entities\Attribute;
-use Arquivei\XML\Tag\Finder\Entities\Tag;
+use Arquivei\XML\Tag\Finder\Adapters\XmlParserAdapter;
+use Arquivei\XML\Tag\Finder\Entities\Xml;
 
-final class FinderFactory
+class FinderFactory
 {
-    private $xml;
-    private $parserAdapter;
-
-    public function __construct(
-        string $xml,
-        XmlParserInterface $parserAdapter
-    ) {
-        $this->parserAdapter = $parserAdapter;
-        $this->xml = $xml;
-    }
-
-    public function getTag(string $tag): Tag
+    public function create(string $xml)
     {
-        return (new FindTag($this->xml, $this->parserAdapter))->find($tag);
-    }
-
-    public function getAttribute(string $tag, string $attribute): Attribute
-    {
-        return (new FindAttribute($this->xml, $this->parserAdapter))
-            ->find(
-                $tag,
-                $attribute
-            );
+        return new Finder(
+            new Xml($xml),
+            new XmlParserAdapter()
+        );
     }
 }

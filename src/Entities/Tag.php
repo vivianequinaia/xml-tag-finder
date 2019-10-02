@@ -2,8 +2,6 @@
 
 namespace Arquivei\XML\Tag\Finder\Entities;
 
-use Arquivei\XML\Tag\Finder\FindAttribute;
-
 class Tag
 {
     private $key;

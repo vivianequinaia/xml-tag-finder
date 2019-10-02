@@ -2,15 +2,13 @@
 
 namespace Arquivei\XML\Tag\Finder\Adapters;
 
-use Jitesoft\XML\Node;
+use Arquivei\XML\Tag\Finder\Entities\Xml;
 
 interface XmlParserInterface
 {
-    public function parse(string $xml): Node;
+    public function parse(string $xml): XmlParserAdapter;
 
-    public function getChildByName(string $tagKey): Node;
+    public function getAttribute(Xml $xml, string $tag, string $attribute): string;
 
-    public function getAttribute(string $attribute): string;
-
-    public function getContent(): string;
+    public function getTag(Xml $xml, string $tag): string;
 }

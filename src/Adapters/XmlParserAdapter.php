@@ -2,38 +2,42 @@
 
 namespace Arquivei\XML\Tag\Finder\Adapters;
 
-use Jitesoft\XML\Node;
-use Jitesoft\XML\ParserInterface;
+use Arquivei\XML\Tag\Finder\Entities\Xml;
+use Jitesoft\XML\Parser;
 
 class XmlParserAdapter implements XmlParserInterface
 {
     private $xmlParser;
     private $xmlTreeNode;
-    private $parser;
 
-    public function __construct(ParserInterface $xmlParser)
+    public function parse(string $xml): XmlParserAdapter
     {
-        $this->xmlParser = $xmlParser;
+        $this->xmlParser = new Parser();
+        $this->xmlTreeNode = $this->xmlParser->parse($xml);
+        return $this;
     }
 
-    public function parse(string $xml): Node
+    public function getAttribute(Xml $xml, string $tag, string $attribute): string
     {
-        $this->parser = clone $this->xmlParser;
-        return $this->parser->parse($xml);
-    }
+        $this->parse($xml->getNfe());
 
-    public function getChildByName(string $tagKey): Node
-    {
-        return $this->xmlTreeNode->getChildByName($tagKey);
-    }
+        $tagArray = explode('/', $tag);
+        foreach ($tagArray as $value) {
+            $this->xmlTreeNode = $this->xmlTreeNode->getChildByName($value);
+        }
 
-    public function getAttribute(string $attribute): string
-    {
         return $this->xmlTreeNode->getAttribute($attribute);
     }
 
-    public function getContent(): string
+    public function getTag(Xml $xml, string $tag): string
     {
+        $this->parse($xml->getNfe());
+
+        $tagArray = explode('/', $tag);
+        foreach ($tagArray as $value) {
+            $this->xmlTreeNode = $this->xmlTreeNode->getChildByName($value);
+        }
+
         return $this->xmlTreeNode->getContent();
     }
 }
