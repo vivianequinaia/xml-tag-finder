@@ -8,14 +8,24 @@ composer require VivianeQuinaia/xml-tag-finder
 ```
 
 #### How to use
+
+The first tag of xml file (<?xml?>) is ignored by the lib.
+To get a value of any xml tag you need the path of it. 
+For example:
+If you need the value of emitter CNPJ, use 'nfeProc/NFe/infNFe/emit/CNPJ'.
+It's the same way to get a value of an attribute tag, just pass the path of tag and attribute name.
+######Example:
 ```php
 <?php
 
-$finderFactory = $a = (new FinderFactory())->create($xml);
+use Arquivei\XML\Tag\Finder\FinderFactory;
 
-$tag = $finderFactory->getTag('infNFe/emit/CNPJ')->find();
+$finderFactory = (new FinderFactory())->create($xml);
 
+$tag = $finderFactory->getTag('nfeProc/NFe/infNFe/emit/CNPJ')->find();
 $attribute = $finderFactory->getTag('infNFe')->getAttribute('Id')->find();
+
+var_dump($tag, $attribute);
 ```
 
 #### Run Tests

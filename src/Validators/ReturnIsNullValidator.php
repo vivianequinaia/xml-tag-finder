@@ -2,7 +2,7 @@
 
 namespace Arquivei\XML\Tag\Finder\Validators;
 
-class CheckIfReturnIsNullValidator
+class ReturnIsNullValidator
 {
     private $return;
 

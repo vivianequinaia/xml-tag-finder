@@ -4,13 +4,13 @@ namespace Arquivei\XML\Tag\Finder\Exceptions;
 
 use Throwable;
 
-class TagOrValueNotFoundException extends \Exception
+class TagNotFoundException extends \Exception
 {
     private $key;
 
     public function __construct(
-        $message = "The tag or value searched was not found.",
         Throwable $previous = null,
+        $message = "The tag searched was not found.",
         $code = 00001
     ) {
         parent::__construct($message, $code, $previous);
@@ -21,7 +21,7 @@ class TagOrValueNotFoundException extends \Exception
         return $this->key;
     }
 
-    public function setKey(string $key): TagOrValueNotFoundException
+    public function setKey(string $key): TagNotFoundException
     {
         $this->key = $key;
         return $this;

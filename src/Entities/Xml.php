@@ -6,9 +6,10 @@ class Xml
 {
     private $content;
 
-    public function __construct(string $content)
+    public function setContent(string $content): Xml
     {
         $this->content = $content;
+        return $this;
     }
 
     public function getContent(): string

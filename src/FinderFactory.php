@@ -10,7 +10,7 @@ class FinderFactory
     public function create(string $xml)
     {
         return new Finder(
-            new Xml($xml),
+            (new Xml())->setContent($xml),
             new XmlParserAdapter()
         );
     }

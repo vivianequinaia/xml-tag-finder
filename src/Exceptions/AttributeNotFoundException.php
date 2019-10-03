@@ -9,8 +9,8 @@ class AttributeNotFoundException extends \Exception
     private $name;
 
     public function __construct(
-        $message = "The tag or attribute or value searched was not found.",
         Throwable $previous = null,
+        $message = "The tag or attribute or value searched was not found.",
         $code = 00002
     ) {
         parent::__construct($message, $code, $previous);
