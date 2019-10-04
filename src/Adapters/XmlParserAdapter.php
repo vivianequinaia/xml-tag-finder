@@ -2,6 +2,7 @@
 
 namespace Arquivei\XML\Tag\Finder\Adapters;
 
+use Arquivei\XML\Tag\Finder\Entities\Tag;
 use Arquivei\XML\Tag\Finder\Entities\Xml;
 use Arquivei\XML\Tag\Finder\Exceptions\AttributeNotFoundException;
 use Arquivei\XML\Tag\Finder\Exceptions\TagNotFoundException;
@@ -43,7 +44,7 @@ class XmlParserAdapter implements XmlParserInterface
 
     public function getTag(Xml $xml, string $tag): ?string
     {
-        if($tag === $this->tagName) {
+        if ($tag === $this->tagName) {
             $return = $this->getContent();
 
             $validate = (new ReturnIsNullValidator($return))->validate();
@@ -75,6 +76,49 @@ class XmlParserAdapter implements XmlParserInterface
         }
 
         return $return;
+    }
+
+    public function getTags(Xml $xml, string $tags): array
+    {
+        $this->parse($xml->getContent());
+
+        $tagsArray = explode('/', $tags);
+        unset($tagsArray[0]);
+        $end = end($tagsArray);
+
+        $this->xmlTreeNode = $this->xmlTreeNode->getChildren();
+        if($this->xmlTreeNode[0]->getName() !== $end) {
+            unset($tagsArray[1]);
+        }
+
+        foreach ($this->xmlTreeNode as $key => $value) {
+            foreach ($tagsArray as $keyTag => $tag) {
+                if($value !== $end) {
+                    $b[$key] = $value;
+                }
+                $value = $value->getChildByName($tag);
+                $b[$key] = $value;
+            }
+        }
+        $tagsValues=[];
+
+        foreach ($b as $key => $value) {
+            if ($value->childCount($end) > 1) {
+                $value = $value->getChildren($end);
+                foreach ($value as $child) {
+                    $tagsValues[] = (new Tag())
+                        ->setValue($child->getContent())
+                        ->setKey($tags);
+                }
+                continue;
+            }
+
+            $tagsValues[] = (new Tag())
+                ->setValue($value->getChildByName($end)->getContent())
+                ->setKey($tags);
+        }
+
+        return $tagsValues;
     }
 
     public function getName()

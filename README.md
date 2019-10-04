@@ -9,7 +9,7 @@ composer require VivianeQuinaia/xml-tag-finder
 
 #### How to use
 
-The first tag of xml file (<?xml?>) is ignored by the lib.
+The first tag of xml file `<?xml?>` is ignored by the libray.
 To get a value of any xml tag you need the path of it. 
 For example:
 If you need the value of emitter CNPJ, use 'nfeProc/NFe/infNFe/emit/CNPJ'.
@@ -23,7 +23,10 @@ use Arquivei\XML\Tag\Finder\FinderFactory;
 $finderFactory = (new FinderFactory())->create($xml);
 
 $tag = $finderFactory->getTag('nfeProc/NFe/infNFe/emit/CNPJ')->find();
+
 $attribute = $finderFactory->getTag('infNFe')->getAttribute('Id')->find();
+
+$tag = $a->getTags('CATALOG/CD/test/test1/TITLE')->find();
 
 var_dump($tag, $attribute);
 ```
