@@ -58,6 +58,10 @@ class XmlParserAdapter implements XmlParserInterface
         try {
             $this->parse($xml->getContent());
 
+            if ($this->xmlTreeNode->childCount() > 1) {
+                die(var_dump('ffsdfsdfs'));
+            }
+
             $tagArray = explode('/', $tag);
             unset($tagArray[0]);
             foreach ($tagArray as $value) {
