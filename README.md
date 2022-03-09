@@ -4,7 +4,7 @@
 #### Install
 
 ```
-composer require VivianeQuinaia/xml-tag-finder
+composer require vivianequinaia/xml-tag-finder
 ```
 
 #### How to use
